@@ -4,6 +4,7 @@ const addProductButton = document.getElementById('add-product');
 const cart = document.getElementById('cart');
 const totalPriceSpan = document.getElementById('total-price');
 
+
 let totalPrice = 0;
  
 // Function to update the total price
@@ -22,32 +23,40 @@ function removeItem(event) {
 
 //add product button function
 addProductButton.addEventListener('click', function() {
-    
+    if (!productName.checkValidity() || !productPrice.checkValidity()) {
+    alert("Enter product and Price.")
+    return;
+}
+const name = productName.value.trim();
+const price = parseFloat(productPrice.value);
+addProductToCart((name,price),productName.value = '', productPrice.value = '');
+
 })
 
 
 // Function for adding products and testing 
-let productList = []
+let cartList = []
 
-function addProductToList(name, price) {
-const newProduct = {
+function addProductToCart(name, price) {
+const newItem = {
     name: name,
     price: parseFloat(price)
 
     
 };
-productList.push(newProduct);
-renderProductToList(newProduct);
-updateTotalPrice(newProduct.price);
+cartList.push(newItem);
+renderProductToCart(newItem);
+updateTotalPrice(newItem.price);
 
 }
 
-//Totaling cost, removebutton child 
-function renderProductToList(product) {
+//Totaling cost, removebutton child to each item
+function renderProductToCart(product) {
     
 const listItem = document.createElement('li');
-listItem.textContent = `${product.name} - $${product.price.toFixed(2)}`;
 listItem.dataset.price = product.price;
+listItem.textContent = `${product.name} - $${product.price.toFixed(2)}`;
+
 
 const removeBtn = document.createElement('button');
 removeBtn.textContent = 'Remove'
@@ -58,11 +67,11 @@ cart.appendChild(listItem);
     
 }
 
-addProductToList("Cat food", 9.00)
-addProductToList("Icecream", 6.38);
-addProductToList("soap", 3.00);
-addProductToList("cookies", 5.99);
-addProductToList("chips", 1.99);
-addProductToList("napkins", 2.50)
+addProductToCart("Cat food", 9.00)
+addProductToCart("Icecream", 6.38);
+addProductToCart("soap", 3.00);
+addProductToCart("cookies", 5.99);
+addProductToCart("chips", 1.99);
+addProductToCart("napkins", 2.50)
 
-console.log(productList);
+console.log(cartList);
