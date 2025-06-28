@@ -16,6 +16,7 @@ function updateTotalPrice(amount) {
 // Function to remove an item
 function removeItem(event) {
     const item = event.target.closest('li');
+    console.log('Remove item:', item.textContent);
     const price = parseFloat(item.dataset.price);
     updateTotalPrice(-price);
     item.remove();
@@ -23,10 +24,14 @@ function removeItem(event) {
 
 //add product button function 
 addProductButton.addEventListener('click', function () {
+    console.log(productName.value);
     const name = productName.value.trim();
     const price = parseFloat(productPrice.value);
+    // Trying switch condition for edge cases
     switch (true) {
-        case !name:
+        case !name.length === 0:
+            alert("Invalid")
+            return;
         case !price:
         case price <= 0:
             alert("Enter product and Price.")
