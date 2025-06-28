@@ -27,7 +27,7 @@ addProductButton.addEventListener('click', function () {
     console.log(productName.value);
     const name = productName.value.trim();
     const price = parseFloat(productPrice.value);
-    // Trying switch condition for edge cases
+    // Trying switch for edge cases
     switch (true) {
         case !name.length === 0:
             alert("Invalid")
